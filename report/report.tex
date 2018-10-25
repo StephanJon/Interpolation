@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{listings}
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Assignment 1 Report}
+\author{Stephanus Jonatan, jonatans}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Introductory blurb.
+
+\section{Testing of the Original Program}
+
+Description of approach to testing.  Rationale for test case selection.  Summary
+of results.  Any problems uncovered through testing.
+
+\section{Results of Testing Partner's Code}
+
+Summary of results.
+
+
+Overall, the partner's code ran well. However, when a string was inputted as one of the data points, a ValueError occured which specified that it could not convert a string into a float; this crashed the program. The same error also occured when the any line in the text file being tested was empty. In addition, when trying to run the code with only one data point, an error occurs. 
+
+\section{Discussion of Test Results}
+
+\subsection{Problems with Original Code}
+Under the quadVal() function, negative numbers did not work as well as positive numbers (i.e. they were not as accurate). For example, when trying to find the the y value when x = 3.5, with a data ranging from -4.0 to 4.0 (increments of 1), the value returned was the square of 3.5. However, when trying to find the y value with x = -3.5, the value returned was 17.25 which is not the square of -3.5. 
+
+\subsection{Problems with Partner's Code}
+If there is an empty line anywhere in the text file used for testing, nothing can be initialized because it won't be able to change a string into a float. If the author of the partner code used the strip() method before using the split() method, then any white space would have been ignored and would still function. However, due to the assignment specification only specifying to read a text file with data points seperated only by a comma and a space, nothing is really wrong with the code because the requirements were met. 
+
+\subsection{Problems with Assignment Specification}
+The assignment specifications did not specify how errors would be handled. An example, other than the previously mentioned problem in section 3.2 of this report, is that when elements are added to a sequence using the add() method in SeqADT.py and it is added outside of the sequence's index, it was not specified whether to append that element to the end, or to not append it at all and provide a maximum index number from the start instead. Depending on the developers decision, it could have gone either way.
+
+\section{Answers}
+
+\begin{enumerate}
+
+\item For each of the methods in each of the classes, please classify it as a
+  constructor, accessor or mutator.
+
+\begin{tabular}{lr}
+		Methods & Type\\
+		SeqADT\\
+		\_\_init\_\_ & constructor\\
+		add & mutator\\
+		rm & mutator\\
+		set & mutator\\
+		get & accessor\\
+		size & accessor\\
+		indexInSeq & accessor\\\\
+		CurveADT\\
+		\_\_init\_\_ & constructor\\
+		linVal & accessor\\
+		quadVal & accessor\\
+		npolyVal & accessor
+\end{tabular}
+\newpage
+\item What are the advantages and disadvantages of using an external library
+  like \texttt{numpy}?
+
+Using a library like numpy will save a lot of time and effort from having to build certain methods that you want your program to do. However, there is a learning curve into learning how to use an external library. Also, depending on the method you are using in the external library, a developer might be able to make a faster method that does the same thing as the method in the library. However, despite these few disadvantages, the time and effort saved from using a pre-existing library usually outweighs the cons.
+
+\item The \texttt{SeqT} class overlaps with the functionality provided by
+  Python's in-built list type.  What are the differences between \texttt{SeqT}
+  and Python's list type?  What benefits does Python's list type provide over
+  the \texttt{SeqT} class?
+
+The difference between SeqT list type is and Python's pre-existing list type is that Python already has methods for its list type, whereas SeqT is a custom list type that must have methods made by the developer. This is why using Python's pre-existing list type is better; the developer does not have to spend time creating methods that euther construct, access, or mutate the list like SeqT list types. However, if the developer wants custom outputs for the list, then creating a custom list type like SeqT will be beneficial.
+
+\item What complications would be added to your code if the assumption that
+  $x_i < x_{i+1}$ no longer applied?
+
+If this assumption was no longer applied, it would cause problems when using the linVal() and quadVal() functions since it relies on a custom accessor indexInSeq() that was built with intention of it being used on a sorted sequence. This would then cause problems in the output of both linVal() and quadVal(), resulting in a more inaccurate estimate of a y value at a user specified x value.
+
+\item Will \texttt{linVal(x)} equal \texttt{npolyVal(n, x)} for the same \texttt{x}
+  value?  Why or why not?
+
+The only difference between linVal() and npolyVal() - assuming the test file for both has data for a linear graph - is differences in rounding when finding the y value at a given x value. However, this does not matter because the difference is too small to make a significant change. 
+\end{enumerate}
+
+\newpage
+
+\lstset{language=Python, basicstyle=\tiny, breaklines=true, showspaces=false,
+  showstringspaces=false, breakatwhitespace=true}
+%\lstset{language=C,linewidth=.94\textwidth,xleftmargin=1.1cm}
+
+\def\thesection{\Alph{section}} 
+
+\section{Code for SeqADT.py}
+
+\noindent \lstinputlisting{../src/SeqADT.py}
+
+\newpage
+
+\section{Code for CurveADT.py}
+
+\noindent \lstinputlisting{../src/CurveADT.py}
+
+\newpage
+
+\section{Code for testSeqs.py}
+
+\noindent \lstinputlisting{../src/testSeqs.py}
+
+\newpage
+
+\section{Code for Partner's SeqADT.py}
+
+\noindent \lstinputlisting{../partner/SeqADT.py}
+
+\newpage
+
+\section{Code for Partner's CurveADT.py}
+
+\noindent \lstinputlisting{../partner/CurveADT.py}
+
+\newpage
+
+\section{Makefile}
+
+\lstset{language=make}
+\noindent \lstinputlisting{../Makefile}
+
+\end{document}
